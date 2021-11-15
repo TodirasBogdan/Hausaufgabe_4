@@ -1,4 +1,4 @@
-package RepositoryTest;
+package repositoryTest;
 
 import model.Course;
 import model.Teacher;
