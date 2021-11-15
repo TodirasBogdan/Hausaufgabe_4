@@ -71,6 +71,17 @@ public class Student extends Person {
     }
 
     /**
+     * compares 2 students by their full name
+     * @param other is the student to be compared with
+     * @return an integer value >0, <0 or 0 if this student has a higher, lower or equal lexicographical value compared with other
+     */
+    public int compareTo(Student other) {
+        String thisName = super.getFirstName() + " " + super.getLastName();
+        String otherName = other.getFirstName() + " " + other.getLastName();
+        return thisName.compareTo(otherName);
+    }
+
+    /**
      * @return a hashcode of student
      */
     @Override

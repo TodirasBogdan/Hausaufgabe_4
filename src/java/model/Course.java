@@ -101,16 +101,12 @@ public class Course {
 
 
     /**
-     * compare 2 courses by their credits
-     * @param o is the course to be compared with
-     * @return 1, -1 or 0 if this course has a higher, lower or equal number of credits with o
+     * compares 2 courses by their credits
+     * @param other is the course to be compared with
+     * @return an integer value >0, <0 or 0 if this course has a higher, lower or equal number of credits with other
      */
-    public int compareTo(Course o) {
-        if (this.getCredits() > o.getCredits()) {
-            return 1;
-        } else if (this.getCredits() < o.getCredits()) {
-            return -1;
-        } else return 0;
+    public int compareTo(Course other) {
+        return Integer.compare(this.getCredits(), other.getCredits());
     }
 
 

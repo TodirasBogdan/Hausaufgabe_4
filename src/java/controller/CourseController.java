@@ -54,6 +54,7 @@ public class CourseController {
 
     /**
      * sorts all courses by credits
+     * @return a sorted list of courses
      */
     public List<Course> sortCoursesByCredits() {
         List<Course> sortedCourses = this.courseFileRepository.getAll();
@@ -64,6 +65,8 @@ public class CourseController {
 
     /**
      * filters all courses by credits
+     * @param credits is number of credits to be compared with
+     * @return a filtered list of courses
      */
     public List<Course> filterCoursesByCredits(int credits) {
         return this.courseFileRepository.getAll().stream().filter(course -> course.getCredits() >= credits).collect(Collectors.toList());
