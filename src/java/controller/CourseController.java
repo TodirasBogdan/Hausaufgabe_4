@@ -31,7 +31,7 @@ public class CourseController {
         this.courseFileRepository.readDataFromFile();
     }
 
-    public void writeToCourseFile() {
+    public void writeDataToCourseFile() {
         this.courseFileRepository.writeDataToFile();
     }
 
@@ -54,6 +54,7 @@ public class CourseController {
 
     /**
      * sorts all courses by credits
+     *
      * @return a sorted list of courses
      */
     public List<Course> sortCoursesByCredits() {
@@ -65,6 +66,7 @@ public class CourseController {
 
     /**
      * filters all courses by credits
+     *
      * @param credits is number of credits to be compared with
      * @return a filtered list of courses
      */
