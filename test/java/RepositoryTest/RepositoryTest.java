@@ -1,11 +1,9 @@
 package RepositoryTest;
 
 import model.Course;
-import model.Student;
 import model.Teacher;
-import repository.CourseRepository;
-
 import org.junit.jupiter.api.Test;
+import repository.CourseRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +16,8 @@ public class RepositoryTest {
 
     private final CourseRepository courseRepository = new CourseRepository();
     List<Long> coursesIds = new ArrayList<>();
-    List<Course> courses = new ArrayList<>();
     private final Teacher teacher = new Teacher("Ion", "Ionescu", 789, coursesIds);
+    List<Course> courses = new ArrayList<>();
     List<Long> studentsIds = new ArrayList<>();
     private final Course course1 = new Course("Map", teacher.toString(), 30, studentsIds, 5, 123456);
     private final Course course2 = new Course("Fp", teacher.toString(), 30, studentsIds, 7, 654321);

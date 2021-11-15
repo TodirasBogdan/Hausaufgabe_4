@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import model.Course;
-import model.Teacher;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode parser = objectMapper.readTree(reader);
 
-        for(JsonNode jsonNode:parser){
+        for (JsonNode jsonNode : parser) {
             Course course = new Course();
 
             course.setName(jsonNode.path("name").asText());
@@ -42,7 +41,7 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
             course.setCourseId(jsonNode.path("courseId").asLong());
 
             JsonNode jsonArray = jsonNode.get("studentsEnrolledIds");
-            if(jsonArray.size()>0){
+            if (jsonArray.size() > 0) {
                 course.setStudentsEnrolledIds(IFileRepository.convertJsonArray(jsonArray));
             } else {
                 course.setStudentsEnrolledIds(new ArrayList<>());

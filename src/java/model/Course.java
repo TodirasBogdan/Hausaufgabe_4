@@ -32,7 +32,9 @@ public class Course {
         this.name = name;
     }
 
-    public String getTeacher() { return teacher; }
+    public String getTeacher() {
+        return teacher;
+    }
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
@@ -100,6 +102,7 @@ public class Course {
 
     /**
      * compares 2 courses by their credits
+     *
      * @param other is the course to be compared with
      * @return an integer value >0, <0 or 0 if this course has a higher, lower or equal number of credits with other
      */

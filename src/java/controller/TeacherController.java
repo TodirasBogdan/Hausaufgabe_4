@@ -34,8 +34,7 @@ public class TeacherController {
     }
 
     public Teacher addTeacher(Teacher teacher) throws IOException {
-        this.teacherFileRepository.create(teacher);
-        return teacher;
+        return this.teacherFileRepository.create(teacher);
     }
 
     public List<Teacher> getAllTeachers() {

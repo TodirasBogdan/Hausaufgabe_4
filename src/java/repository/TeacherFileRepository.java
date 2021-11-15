@@ -31,7 +31,7 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode parser = objectMapper.readTree(reader);
 
-        for (JsonNode jsonNode : parser){
+        for (JsonNode jsonNode : parser) {
             Teacher teacher = new Teacher();
 
             teacher.setFirstName(jsonNode.path("firstName").asText());
@@ -39,9 +39,9 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
             teacher.setPersonId(jsonNode.path("personId").asLong());
 
             JsonNode jsonArray = jsonNode.get("coursesIds");
-            if(jsonArray.size()>0){
+            if (jsonArray.size() > 0) {
                 teacher.setCourses(IFileRepository.convertJsonArray(jsonArray));
-            }else {
+            } else {
                 teacher.setCourses(new ArrayList<>());
             }
             this.create(teacher);

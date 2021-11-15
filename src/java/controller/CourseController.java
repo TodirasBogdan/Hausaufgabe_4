@@ -36,8 +36,7 @@ public class CourseController {
     }
 
     public Course addCourse(Course course) throws IOException {
-        this.courseFileRepository.create(course);
-        return course;
+        return this.courseFileRepository.create(course);
     }
 
     public List<Course> getAllCourses() {
