@@ -1,5 +1,6 @@
 package repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public abstract class InMemoryRepository<T> implements ICrudRepository<T> {
     }
 
     @Override
-    public T create(T obj) {
+    public T create(T obj) throws IOException {
         this.repoList.add(obj);
         return obj;
     }
@@ -28,7 +29,7 @@ public abstract class InMemoryRepository<T> implements ICrudRepository<T> {
     }
 
     @Override
-    public void delete(T obj) {
+    public void delete(T obj) throws IOException {
         this.repoList.remove(obj);
     }
 

@@ -1,19 +1,80 @@
 package repository;
 
-import model.Student;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import model.Teacher;
 
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
+import java.util.ArrayList;
 
-public class TeacherFileRepository extends TeacherRepository implements FileRepository<Teacher>{
-    @Override
-    public List<Teacher> readDataFromFile() throws IOException {
-        return null;
+public class TeacherFileRepository extends TeacherRepository implements IFileRepository<Teacher> {
+
+    private String teacherFile;
+
+    public TeacherFileRepository(String teacherFile) {
+        this.teacherFile = teacherFile;
+    }
+
+    public String getTeacherFile() {
+        return teacherFile;
+    }
+
+    public void setTeacherFile(String teacherFile) {
+        this.teacherFile = teacherFile;
     }
 
     @Override
-    public void writeDataToFile() {
+    public void readDataFromFile() throws IOException {
+        Reader reader = new BufferedReader(new FileReader(this.teacherFile));
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode parser = objectMapper.readTree(reader);
 
+        for (JsonNode jsonNode : parser){
+            Teacher teacher = new Teacher();
+
+            teacher.setFirstName(jsonNode.path("firstName").asText());
+            teacher.setLastName(jsonNode.path("lastName").asText());
+            teacher.setPersonId(jsonNode.path("personId").asLong());
+
+            JsonNode jsonArray = jsonNode.get("coursesIds");
+            if(jsonArray.size()>0){
+                teacher.setCourses(IFileRepository.convertJsonArray(jsonArray));
+            }else {
+                teacher.setCourses(new ArrayList<>());
+            }
+            this.create(teacher);
+        }
+        reader.close();
     }
+
+    @Override
+    public void writeDataToFile() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        objectWriter.writeValue(new File(this.teacherFile), repoList);
+    }
+
+    @Override
+    public Teacher create(Teacher obj) throws IOException {
+        super.create(obj);
+        writeDataToFile();
+        return super.create(obj);
+    }
+
+    @Override
+    public Teacher update(Teacher obj) throws IOException {
+        super.update(obj);
+        writeDataToFile();
+        return super.update(obj);
+    }
+
+    @Override
+    public void delete(Teacher obj) throws IOException {
+        super.delete(obj);
+        writeDataToFile();
+    }
+
+
 }

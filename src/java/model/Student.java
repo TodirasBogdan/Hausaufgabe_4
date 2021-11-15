@@ -31,7 +31,7 @@ public class Student extends Person {
         return enrolledCoursesIds;
     }
 
-    public void setEnrolledCourses(List<Long> enrolledCoursesIds) {
+    public void setEnrolledCoursesIds(List<Long> enrolledCoursesIds) {
         this.enrolledCoursesIds = enrolledCoursesIds;
     }
 

@@ -7,6 +7,7 @@ import repository.CourseRepository;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +21,15 @@ public class RepositoryTest {
     List<Course> courses = new ArrayList<>();
     private final Teacher teacher = new Teacher("Ion", "Ionescu", 789, coursesIds);
     List<Long> studentsIds = new ArrayList<>();
-    private final Course course1 = new Course("Map", teacher, 30, studentsIds, 5, 123456);
-    private final Course course2 = new Course("Fp", teacher, 30, studentsIds, 7, 654321);
-    private final Course course3 = new Course("Map", teacher, 30, studentsIds, 6, 123456);
+    private final Course course1 = new Course("Map", teacher.toString(), 30, studentsIds, 5, 123456);
+    private final Course course2 = new Course("Fp", teacher.toString(), 30, studentsIds, 7, 654321);
+    private final Course course3 = new Course("Map", teacher.toString(), 30, studentsIds, 6, 123456);
 
     /**
      * check if create works properly
      */
     @Test
-    public void testCreate() {
+    public void testCreate() throws IOException {
         assert (courseRepository.getAll().size() == 0);
         assert (courseRepository.create(course1) == course1);
         assert (courseRepository.getAll().size() == 1);
@@ -40,7 +41,7 @@ public class RepositoryTest {
      * check if getAll works properly
      */
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws IOException {
         assert (courseRepository.getAll().size() == 0);
         courseRepository.create(course1);
         assert (courseRepository.getAll().size() == 1);
@@ -57,7 +58,7 @@ public class RepositoryTest {
      * check if update works properly
      */
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws IOException {
         assert (courseRepository.getAll().size() == 0);
         courseRepository.create(course1);
         assert (courseRepository.getAll().size() == 1);
@@ -74,7 +75,7 @@ public class RepositoryTest {
      * check if delete works properly
      */
     @Test
-    public void testDelete() {
+    public void testDelete() throws IOException {
         assert (courseRepository.getAll().size() == 0);
         courseRepository.create(course1);
         assert (courseRepository.getAll().size() == 1);

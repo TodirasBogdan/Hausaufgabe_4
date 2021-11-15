@@ -29,11 +29,11 @@ public class TeacherController {
         this.teacherFileRepository.readDataFromFile();
     }
 
-    public void writeDataToTeacherFile() {
+    public void writeDataToTeacherFile() throws IOException {
         this.teacherFileRepository.writeDataToFile();
     }
 
-    public Teacher addTeacher(Teacher teacher) {
+    public Teacher addTeacher(Teacher teacher) throws IOException {
         this.teacherFileRepository.create(teacher);
         return teacher;
     }
@@ -42,11 +42,11 @@ public class TeacherController {
         return this.teacherFileRepository.getAll();
     }
 
-    public Teacher updateTeacher(Teacher teacher) {
+    public Teacher updateTeacher(Teacher teacher) throws IOException {
         return this.teacherFileRepository.update(teacher);
     }
 
-    public void deleteTeacher(Teacher teacher) {
+    public void deleteTeacher(Teacher teacher) throws IOException {
         this.teacherFileRepository.delete(teacher);
     }
 

@@ -31,11 +31,11 @@ public class CourseController {
         this.courseFileRepository.readDataFromFile();
     }
 
-    public void writeDataToCourseFile() {
+    public void writeDataToCourseFile() throws IOException {
         this.courseFileRepository.writeDataToFile();
     }
 
-    public Course addCourse(Course course) {
+    public Course addCourse(Course course) throws IOException {
         this.courseFileRepository.create(course);
         return course;
     }
@@ -44,11 +44,11 @@ public class CourseController {
         return this.courseFileRepository.getAll();
     }
 
-    public Course updateCourse(Course course) {
+    public Course updateCourse(Course course) throws IOException {
         return this.courseFileRepository.update(course);
     }
 
-    public void deleteCourse(Course course) {
+    public void deleteCourse(Course course) throws IOException {
         this.courseFileRepository.delete(course);
     }
 

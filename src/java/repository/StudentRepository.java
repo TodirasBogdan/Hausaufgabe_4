@@ -2,6 +2,7 @@ package repository;
 
 import model.Student;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class StudentRepository extends InMemoryRepository<Student> {
@@ -17,7 +18,7 @@ public class StudentRepository extends InMemoryRepository<Student> {
      * @return obj if obj is not in StudentRepository, otherwise update student and return null
      */
     @Override
-    public Student update(Student obj) {
+    public Student update(Student obj) throws IOException {
         for (Student student : repoList)
             if (Objects.equals(student.getPersonId(), obj.getPersonId())) {
                 repoList.remove(student);

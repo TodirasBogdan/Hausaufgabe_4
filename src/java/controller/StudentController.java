@@ -31,24 +31,23 @@ public class StudentController {
         this.studentFileRepository.readDataFromFile();
     }
 
-    public void writeDataStudentToFile() {
+    public void writeDataStudentToFile() throws IOException {
         this.studentFileRepository.writeDataToFile();
     }
 
-    public Student addStudent(Student student) {
-        this.studentFileRepository.create(student);
-        return student;
+    public Student addStudent(Student student) throws IOException {
+        return this.studentFileRepository.create(student);
     }
 
     public List<Student> getAllStudents() {
         return this.studentFileRepository.getAll();
     }
 
-    public Student updateStudent(Student student) {
+    public Student updateStudent(Student student) throws IOException {
         return this.studentFileRepository.update(student);
     }
 
-    public void deleteStudent(Student student) {
+    public void deleteStudent(Student student) throws IOException {
         this.studentFileRepository.delete(student);
     }
 

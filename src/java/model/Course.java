@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Course {
 
     private String name;
-    private Teacher teacher;
+    private String teacher;
     private int maxEnrollment;
     private List<Long> studentsEnrolledIds;
     private int credits;
@@ -15,7 +15,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, Teacher teacher, int maxEnrollment, List<Long> studentsEnrolledIds, int credits, long courseId) {
+    public Course(String name, String teacher, int maxEnrollment, List<Long> studentsEnrolledIds, int credits, long courseId) {
         this.name = name;
         this.teacher = teacher;
         this.maxEnrollment = maxEnrollment;
@@ -32,11 +32,9 @@ public class Course {
         this.name = name;
     }
 
-    public Person getTeacher() {
-        return teacher;
-    }
+    public String getTeacher() { return teacher; }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
 
@@ -48,11 +46,11 @@ public class Course {
         this.maxEnrollment = maxEnrollment;
     }
 
-    public List<Long> getStudentsEnrolled() {
+    public List<Long> getStudentsEnrolledIds() {
         return studentsEnrolledIds;
     }
 
-    public void setStudentsEnrolled(List<Long> studentsEnrolledIds) {
+    public void setStudentsEnrolledIds(List<Long> studentsEnrolledIds) {
         this.studentsEnrolledIds = studentsEnrolledIds;
     }
 
@@ -80,7 +78,7 @@ public class Course {
     public String toString() {
         return "Course{" +
                 "name='" + name + '\'' +
-                ", teacher=" + teacher.getFirstName() + " " + teacher.getLastName() +
+                ", teacher=" + teacher +
                 ", maxEnrollment=" + maxEnrollment +
                 ", credits=" + credits +
                 '}';
@@ -96,7 +94,7 @@ public class Course {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Course course)) return false;
-        return getMaxEnrollment() == course.getMaxEnrollment() && getCredits() == course.getCredits() && getCourseId() == course.getCourseId() && Objects.equals(getName(), course.getName()) && Objects.equals(getTeacher(), course.getTeacher()) && Objects.equals(getStudentsEnrolled(), course.getStudentsEnrolled());
+        return getMaxEnrollment() == course.getMaxEnrollment() && getCredits() == course.getCredits() && getCourseId() == course.getCourseId() && Objects.equals(getName(), course.getName()) && Objects.equals(getTeacher(), course.getTeacher()) && Objects.equals(getStudentsEnrolledIds(), course.getStudentsEnrolledIds());
     }
 
 
@@ -115,6 +113,6 @@ public class Course {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getTeacher(), getMaxEnrollment(), getStudentsEnrolled(), getCredits(), getCourseId());
+        return Objects.hash(getName(), getTeacher(), getMaxEnrollment(), getStudentsEnrolledIds(), getCredits(), getCourseId());
     }
 }
