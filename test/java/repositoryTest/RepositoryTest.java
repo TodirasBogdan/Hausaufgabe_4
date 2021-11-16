@@ -19,9 +19,9 @@ public class RepositoryTest {
     private final Teacher teacher = new Teacher("Ion", "Ionescu", 789, coursesIds);
     List<Course> courses = new ArrayList<>();
     List<Long> studentsIds = new ArrayList<>();
-    private final Course course1 = new Course("Map", teacher.toString(), 30, studentsIds, 5, 123456);
-    private final Course course2 = new Course("Fp", teacher.toString(), 30, studentsIds, 7, 654321);
-    private final Course course3 = new Course("Map", teacher.toString(), 30, studentsIds, 6, 123456);
+    private final Course course1 = new Course("Map", teacher.getPersonId(), 30, studentsIds, 5, 123456);
+    private final Course course2 = new Course("Fp", teacher.getPersonId(), 30, studentsIds, 7, 654321);
+    private final Course course3 = new Course("Map", teacher.getPersonId(), 30, studentsIds, 6, 123456);
 
     /**
      * check if create works properly

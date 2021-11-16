@@ -1,6 +1,8 @@
 package controller;
 
+import model.Course;
 import model.Student;
+import repository.CourseFileRepository;
 import repository.StudentFileRepository;
 
 import java.io.IOException;
@@ -10,13 +12,21 @@ import java.util.stream.Collectors;
 
 public class StudentController {
 
+    private CourseFileRepository courseFileRepository;
     private StudentFileRepository studentFileRepository;
 
-    public StudentController() {
+
+    public StudentController(CourseFileRepository courseFileRepository, StudentFileRepository studentFileRepository) {
+        this.courseFileRepository = courseFileRepository;
+        this.studentFileRepository = studentFileRepository;
     }
 
-    public StudentController(StudentFileRepository studentFileRepository) {
-        this.studentFileRepository = studentFileRepository;
+    public CourseFileRepository getCourseFileRepository() {
+        return courseFileRepository;
+    }
+
+    public void setCourseFileRepository(CourseFileRepository courseFileRepository) {
+        this.courseFileRepository = courseFileRepository;
     }
 
     public StudentFileRepository getStudentFileRepository() {
@@ -27,16 +37,35 @@ public class StudentController {
         this.studentFileRepository = studentFileRepository;
     }
 
-    public void readDataFromStudentFile() throws IOException {
-        this.studentFileRepository.readDataFromFile();
-    }
-
-    public void writeDataStudentToFile() throws IOException {
-        this.studentFileRepository.writeDataToFile();
-    }
 
     public Student addStudent(Student student) throws IOException {
-        return this.studentFileRepository.create(student);
+        List<Long> enrolledCourses = student.getEnrolledCourses();
+        boolean exists = false;
+
+        if (enrolledCourses.size() == 0) {
+            this.studentFileRepository.create(student);
+            this.studentFileRepository.writeDataToFile();
+            return student;
+        }
+
+        List<Course> courses = this.courseFileRepository.getAll();
+        for (Long courseId : enrolledCourses) {
+            for (Course course : courses) {
+                if (course.getCourseId() == courseId) {
+                    course.getStudentsEnrolledIds().add(student.getStudentId());
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists)
+                return null;
+
+        }
+
+        this.studentFileRepository.create(student);
+        this.studentFileRepository.writeDataToFile();
+        this.courseFileRepository.writeDataToFile();
+        return student;
     }
 
     public List<Student> getAllStudents() {
@@ -44,11 +73,22 @@ public class StudentController {
     }
 
     public Student updateStudent(Student student) throws IOException {
-        return this.studentFileRepository.update(student);
+        this.studentFileRepository.update(student);
+        this.studentFileRepository.writeDataToFile();
+        return student;
     }
 
     public void deleteStudent(Student student) throws IOException {
+        Long studentId = student.getStudentId();
+        List<Course> courses = this.courseFileRepository.getAll();
+        for (Course course : courses) {
+            List<Long> studentsEnrolled = course.getStudentsEnrolledIds();
+            studentsEnrolled.remove(studentId);
+            course.setStudentsEnrolledIds(studentsEnrolled);
+        }
         this.studentFileRepository.delete(student);
+        this.studentFileRepository.writeDataToFile();
+        this.courseFileRepository.writeDataToFile();
     }
 
     /**

@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Course {
 
     private String name;
-    private String teacher;
+    private Long teacherId;
     private int maxEnrollment;
     private List<Long> studentsEnrolledIds;
     private int credits;
@@ -15,9 +15,9 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String teacher, int maxEnrollment, List<Long> studentsEnrolledIds, int credits, long courseId) {
+    public Course(String name, Long teacherId, int maxEnrollment, List<Long> studentsEnrolledIds, int credits, long courseId) {
         this.name = name;
-        this.teacher = teacher;
+        this.teacherId = teacherId;
         this.maxEnrollment = maxEnrollment;
         this.studentsEnrolledIds = studentsEnrolledIds;
         this.credits = credits;
@@ -32,12 +32,12 @@ public class Course {
         this.name = name;
     }
 
-    public String getTeacher() {
-        return teacher;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
     public int getMaxEnrollment() {
@@ -80,7 +80,6 @@ public class Course {
     public String toString() {
         return "Course{" +
                 "name='" + name + '\'' +
-                ", teacher=" + teacher +
                 ", maxEnrollment=" + maxEnrollment +
                 ", credits=" + credits +
                 '}';
@@ -96,7 +95,7 @@ public class Course {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Course course)) return false;
-        return getMaxEnrollment() == course.getMaxEnrollment() && getCredits() == course.getCredits() && getCourseId() == course.getCourseId() && Objects.equals(getName(), course.getName()) && Objects.equals(getTeacher(), course.getTeacher()) && Objects.equals(getStudentsEnrolledIds(), course.getStudentsEnrolledIds());
+        return getMaxEnrollment() == course.getMaxEnrollment() && getCredits() == course.getCredits() && getCourseId() == course.getCourseId() && Objects.equals(getName(), course.getName()) && Objects.equals(getTeacherId(), course.getTeacherId()) && Objects.equals(getStudentsEnrolledIds(), course.getStudentsEnrolledIds());
     }
 
 
@@ -116,6 +115,6 @@ public class Course {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getTeacher(), getMaxEnrollment(), getStudentsEnrolledIds(), getCredits(), getCourseId());
+        return Objects.hash(getName(), getTeacherId(), getMaxEnrollment(), getStudentsEnrolledIds(), getCredits(), getCourseId());
     }
 }

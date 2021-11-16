@@ -2,6 +2,8 @@ package controller;
 
 import model.Course;
 import repository.CourseFileRepository;
+import repository.StudentFileRepository;
+import repository.TeacherFileRepository;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -11,12 +13,13 @@ import java.util.stream.Collectors;
 public class CourseController {
 
     private CourseFileRepository courseFileRepository;
+    private StudentFileRepository studentFileRepository;
+    private TeacherFileRepository teacherFileRepository;
 
-    public CourseController() {
-    }
-
-    public CourseController(CourseFileRepository courseFileRepository) {
+    public CourseController(CourseFileRepository courseFileRepository, StudentFileRepository studentFileRepository, TeacherFileRepository teacherFileRepository) {
         this.courseFileRepository = courseFileRepository;
+        this.studentFileRepository = studentFileRepository;
+        this.teacherFileRepository = teacherFileRepository;
     }
 
     public CourseFileRepository getCourseFileRepository() {
@@ -27,12 +30,20 @@ public class CourseController {
         this.courseFileRepository = courseFileRepository;
     }
 
-    public void readDataFromCourseFile() throws IOException {
-        this.courseFileRepository.readDataFromFile();
+    public StudentFileRepository getStudentFileRepository() {
+        return studentFileRepository;
     }
 
-    public void writeDataToCourseFile() throws IOException {
-        this.courseFileRepository.writeDataToFile();
+    public void setStudentFileRepository(StudentFileRepository studentFileRepository) {
+        this.studentFileRepository = studentFileRepository;
+    }
+
+    public TeacherFileRepository getTeacherFileRepository() {
+        return teacherFileRepository;
+    }
+
+    public void setTeacherFileRepository(TeacherFileRepository teacherFileRepository) {
+        this.teacherFileRepository = teacherFileRepository;
     }
 
     public Course addCourse(Course course) throws IOException {

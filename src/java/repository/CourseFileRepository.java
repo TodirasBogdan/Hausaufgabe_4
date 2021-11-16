@@ -35,7 +35,7 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
             Course course = new Course();
 
             course.setName(jsonNode.path("name").asText());
-            course.setTeacher(jsonNode.path("teacher").asText());
+            course.setTeacherId(jsonNode.path("teacherId").asLong());
             course.setMaxEnrollment(jsonNode.path("maxEnrollment").asInt());
             course.setCredits(jsonNode.path("credits").asInt());
             course.setCourseId(jsonNode.path("courseId").asLong());

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Teacher;
+import repository.CourseFileRepository;
 import repository.TeacherFileRepository;
 
 import java.io.IOException;
@@ -8,13 +9,20 @@ import java.util.List;
 
 public class TeacherController {
 
+    private CourseFileRepository courseFileRepository;
     private TeacherFileRepository teacherFileRepository;
 
-    public TeacherController() {
+    public TeacherController(CourseFileRepository courseFileRepository, TeacherFileRepository teacherFileRepository) {
+        this.courseFileRepository = courseFileRepository;
+        this.teacherFileRepository = teacherFileRepository;
     }
 
-    public TeacherController(TeacherFileRepository teacherFileRepository) {
-        this.teacherFileRepository = teacherFileRepository;
+    public CourseFileRepository getCourseFileRepository() {
+        return courseFileRepository;
+    }
+
+    public void setCourseFileRepository(CourseFileRepository courseFileRepository) {
+        this.courseFileRepository = courseFileRepository;
     }
 
     public TeacherFileRepository getTeacherFileRepository() {
