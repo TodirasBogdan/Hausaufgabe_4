@@ -39,29 +39,35 @@ public class StudentController {
 
 
     public Student addStudent(Student student) throws IOException {
-        List<Long> enrolledCourses = student.getEnrolledCourses();
-        boolean exists = false;
+        List<Long> enrolledCoursesIds = student.getEnrolledCoursesIds();
+        boolean exists;
 
-        if (enrolledCourses.size() == 0) {
+        if (enrolledCoursesIds.size() == 0) {
             this.studentFileRepository.create(student);
             this.studentFileRepository.writeDataToFile();
             return student;
         }
 
         List<Course> courses = this.courseFileRepository.getAll();
-        for (Long courseId : enrolledCourses) {
+        for (Long courseId : enrolledCoursesIds) {
+            exists = false;
             for (Course course : courses) {
                 if (course.getCourseId() == courseId) {
-                    course.getStudentsEnrolledIds().add(student.getStudentId());
                     exists = true;
                     break;
                 }
             }
             if (!exists)
                 return null;
-
         }
 
+        for (Long courseId : enrolledCoursesIds){
+            for (Course course : courses){
+                if (course.getCourseId() == courseId){
+                    course.getStudentsEnrolledIds().add(student.getStudentId());
+                }
+            }
+        }
         this.studentFileRepository.create(student);
         this.studentFileRepository.writeDataToFile();
         this.courseFileRepository.writeDataToFile();
@@ -82,9 +88,9 @@ public class StudentController {
         Long studentId = student.getStudentId();
         List<Course> courses = this.courseFileRepository.getAll();
         for (Course course : courses) {
-            List<Long> studentsEnrolled = course.getStudentsEnrolledIds();
-            studentsEnrolled.remove(studentId);
-            course.setStudentsEnrolledIds(studentsEnrolled);
+            List<Long> studentsEnrolledIds = course.getStudentsEnrolledIds();
+            studentsEnrolledIds.remove(studentId);
+            course.setStudentsEnrolledIds(studentsEnrolledIds);
         }
         this.studentFileRepository.delete(student);
         this.studentFileRepository.writeDataToFile();

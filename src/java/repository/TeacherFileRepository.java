@@ -40,9 +40,9 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
 
             JsonNode jsonArray = jsonNode.get("coursesIds");
             if (jsonArray.size() > 0) {
-                teacher.setCourses(IFileRepository.convertJsonArray(jsonArray));
+                teacher.setCoursesIds(IFileRepository.convertJsonArray(jsonArray));
             } else {
-                teacher.setCourses(new ArrayList<>());
+                teacher.setCoursesIds(new ArrayList<>());
             }
             this.create(teacher);
         }

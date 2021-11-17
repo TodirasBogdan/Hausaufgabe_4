@@ -15,11 +15,13 @@ public class Teacher extends Person {
         this.coursesIds = courses;
     }
 
-    public List<Long> getCourses() {
+
+
+    public List<Long> getCoursesIds() {
         return coursesIds;
     }
 
-    public void setCourses(List<Long> coursesIds) {
+    public void setCoursesIds(List<Long> coursesIds) {
         this.coursesIds = coursesIds;
     }
 
@@ -46,7 +48,7 @@ public class Teacher extends Person {
         if (this == o) return true;
         if (!(o instanceof Teacher teacher)) return false;
         if (!super.equals(o)) return false;
-        return Objects.equals(getCourses(), teacher.getCourses());
+        return Objects.equals(getCoursesIds(), teacher.getCoursesIds());
     }
 
     /**
@@ -54,6 +56,6 @@ public class Teacher extends Person {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getCourses());
+        return Objects.hash(super.hashCode(), getCoursesIds());
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Course;
+import model.Teacher;
 import repository.CourseFileRepository;
 import repository.StudentFileRepository;
 import repository.TeacherFileRepository;
@@ -47,6 +48,20 @@ public class CourseController {
     }
 
     public Course addCourse(Course course) throws IOException {
+        List<Teacher> teachers = this.teacherFileRepository.getAll();
+        boolean exists = false;
+
+        for (Teacher teacher : teachers) {
+            List<Long> coursesIds = teacher.getCoursesIds();
+            for (Long courseId : coursesIds) {
+                if (teacher.getPersonId() == course.getTeacherId() && courseId != course.getCourseId()) {
+                    this.courseFileRepository.create(course);
+                    courseFileRepository.writeDataToFile();
+                    teacherFileRepository.writeDataToFile();
+                }
+            }
+        }
+
         return this.courseFileRepository.create(course);
     }
 
@@ -55,7 +70,9 @@ public class CourseController {
     }
 
     public Course updateCourse(Course course) throws IOException {
-        return this.courseFileRepository.update(course);
+        this.courseFileRepository.update(course);
+        this.courseFileRepository.writeDataToFile();
+        return course;
     }
 
     public void deleteCourse(Course course) throws IOException {

@@ -1,5 +1,6 @@
 package controller;
 
+import model.Course;
 import model.Teacher;
 import repository.CourseFileRepository;
 import repository.TeacherFileRepository;
@@ -33,16 +34,41 @@ public class TeacherController {
         this.teacherFileRepository = teacherFileRepository;
     }
 
-    public void readDataFromTeacherFile() throws IOException {
-        this.teacherFileRepository.readDataFromFile();
-    }
-
-    public void writeDataToTeacherFile() throws IOException {
-        this.teacherFileRepository.writeDataToFile();
-    }
-
     public Teacher addTeacher(Teacher teacher) throws IOException {
-        return this.teacherFileRepository.create(teacher);
+        List<Long> coursesIds = teacher.getCoursesIds();
+        boolean exists;
+
+        if (coursesIds.size() == 0) {
+            this.teacherFileRepository.create(teacher);
+            this.teacherFileRepository.writeDataToFile();
+            return teacher;
+        }
+
+        List<Course> courses = this.courseFileRepository.getAll();
+        for (Long courseId : coursesIds) {
+            exists=false;
+            for (Course course : courses) {
+                if (course.getCourseId() == courseId) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists)
+                return null;
+
+        }
+
+        for (Long courseId : coursesIds) {
+            for (Course course : courses) {
+                if (course.getCourseId() == courseId) {
+                    course.setTeacherId(teacher.getPersonId());
+                }
+            }
+        }
+        this.teacherFileRepository.create(teacher);
+        this.courseFileRepository.writeDataToFile();
+        this.teacherFileRepository.writeDataToFile();
+        return teacher;
     }
 
     public List<Teacher> getAllTeachers() {
@@ -50,11 +76,22 @@ public class TeacherController {
     }
 
     public Teacher updateTeacher(Teacher teacher) throws IOException {
-        return this.teacherFileRepository.update(teacher);
+        this.teacherFileRepository.update(teacher);
+        this.teacherFileRepository.writeDataToFile();
+        return teacher;
     }
 
     public void deleteTeacher(Teacher teacher) throws IOException {
+        Long teacherId = teacher.getPersonId();
+        List<Course> courses = this.courseFileRepository.getAll();
+        for (Course course : courses) {
+            if (teacherId.equals(course.getTeacherId())) {
+                course.setTeacherId(null);
+            }
+        }
         this.teacherFileRepository.delete(teacher);
+        this.teacherFileRepository.writeDataToFile();
+        this.courseFileRepository.writeDataToFile();
     }
 
 }

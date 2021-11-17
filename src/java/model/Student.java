@@ -27,7 +27,7 @@ public class Student extends Person {
         this.totalCredits = totalCredits;
     }
 
-    public List<Long> getEnrolledCourses() {
+    public List<Long> getEnrolledCoursesIds() {
         return enrolledCoursesIds;
     }
 
@@ -67,7 +67,7 @@ public class Student extends Person {
         if (this == o) return true;
         if (!(o instanceof Student student)) return false;
         if (!super.equals(o)) return false;
-        return getTotalCredits() == student.getTotalCredits() && Objects.equals(getEnrolledCourses(), student.getEnrolledCourses());
+        return getTotalCredits() == student.getTotalCredits() && Objects.equals(getEnrolledCoursesIds(), student.getEnrolledCoursesIds());
     }
 
     /**
@@ -87,6 +87,6 @@ public class Student extends Person {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getTotalCredits(), getEnrolledCourses());
+        return Objects.hash(super.hashCode(), getTotalCredits(), getEnrolledCoursesIds());
     }
 }
