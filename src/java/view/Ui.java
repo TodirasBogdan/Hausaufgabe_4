@@ -378,7 +378,7 @@ public class Ui {
     }
 
     /**
-     * deletes s teacher
+     * deletes a teacher
      */
     public void deleteTeacher() throws IOException {
         System.out.println("Delete teacher ");
