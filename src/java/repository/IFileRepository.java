@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface IFileRepository<T> extends ICrudRepository<T> {
 
+    /**
+     * converts a jsonArray into List<Long>
+     */
     static List<Long> convertJsonArray(JsonNode jsonArray) {
         List<Long> convertedArray = new ArrayList<>();
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -17,7 +20,13 @@ public interface IFileRepository<T> extends ICrudRepository<T> {
         return convertedArray;
     }
 
+    /**
+     * reads a file
+     */
     void readDataFromFile() throws IOException;
 
+    /**
+     * writes to a file
+     */
     void writeDataToFile() throws IOException;
 }

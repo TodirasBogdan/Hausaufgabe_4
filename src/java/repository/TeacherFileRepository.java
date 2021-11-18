@@ -56,6 +56,9 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
         objectWriter.writeValue(new File(this.teacherFile), repoList);
     }
 
+    /**
+     * creates a teacher and updates file
+     */
     @Override
     public Teacher create(Teacher obj) throws IOException {
         super.create(obj);
@@ -63,6 +66,11 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
         return super.create(obj);
     }
 
+    /**
+     * updates teacher and updates file
+     *
+     * @param obj is a new Teacher object
+     */
     @Override
     public Teacher update(Teacher obj) throws IOException {
         super.update(obj);
@@ -70,6 +78,9 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
         return super.update(obj);
     }
 
+    /**
+     * deletes teacher and updates file
+     */
     @Override
     public void delete(Teacher obj) throws IOException {
         super.delete(obj);

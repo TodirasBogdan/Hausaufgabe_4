@@ -60,6 +60,9 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
         objectWriter.writeValue(new File(this.courseFile), repoList);
     }
 
+    /**
+     * creates a course and updates file
+     */
     @Override
     public Course create(Course obj) throws IOException {
         super.create(obj);
@@ -67,6 +70,11 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
         return super.create(obj);
     }
 
+    /**
+     * updates course and updates file
+     *
+     * @param obj is a new Course object
+     */
     @Override
     public Course update(Course obj) throws IOException {
         super.update(obj);
@@ -74,6 +82,9 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
         return super.update(obj);
     }
 
+    /**
+     * deletes course and updates file
+     */
     @Override
     public void delete(Course obj) throws IOException {
         super.delete(obj);

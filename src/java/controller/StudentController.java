@@ -38,6 +38,9 @@ public class StudentController {
     }
 
 
+    /**
+     * creates a student and updates all files
+     */
     public Student addStudent(Student student) throws IOException {
         List<Long> enrolledCoursesIds = student.getEnrolledCoursesIds();
         boolean exists;
@@ -61,9 +64,9 @@ public class StudentController {
                 return null;
         }
 
-        for (Long courseId : enrolledCoursesIds){
-            for (Course course : courses){
-                if (course.getCourseId() == courseId){
+        for (Long courseId : enrolledCoursesIds) {
+            for (Course course : courses) {
+                if (course.getCourseId() == courseId) {
                     course.getStudentsEnrolledIds().add(student.getStudentId());
                 }
             }
@@ -74,16 +77,25 @@ public class StudentController {
         return student;
     }
 
+    /**
+     * returns a list of all students
+     */
     public List<Student> getAllStudents() {
         return this.studentFileRepository.getAll();
     }
 
+    /**
+     * updates a student and updates all files
+     */
     public Student updateStudent(Student student) throws IOException {
         this.studentFileRepository.update(student);
         this.studentFileRepository.writeDataToFile();
         return student;
     }
 
+    /**
+     * deletes a student and updates all files
+     */
     public void deleteStudent(Student student) throws IOException {
         Long studentId = student.getStudentId();
         List<Course> courses = this.courseFileRepository.getAll();

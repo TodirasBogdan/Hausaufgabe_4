@@ -61,6 +61,9 @@ public class StudentFileRepository extends StudentRepository implements IFileRep
         objectWriter.writeValue(new File(this.studentFile), repoList);
     }
 
+    /**
+     * creates a student and updates file
+     */
     @Override
     public Student create(Student obj) throws IOException {
         super.create(obj);
@@ -68,6 +71,11 @@ public class StudentFileRepository extends StudentRepository implements IFileRep
         return super.create(obj);
     }
 
+    /**
+     * updates student and updates file
+     *
+     * @param obj is a new Student object
+     */
     @Override
     public Student update(Student obj) throws IOException {
         super.update(obj);
@@ -75,6 +83,9 @@ public class StudentFileRepository extends StudentRepository implements IFileRep
         return super.update(obj);
     }
 
+    /**
+     * deletes student and updates file
+     */
     @Override
     public void delete(Student obj) throws IOException {
         super.delete(obj);

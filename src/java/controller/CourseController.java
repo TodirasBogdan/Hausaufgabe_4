@@ -1,6 +1,7 @@
 package controller;
 
 import model.Course;
+import model.Student;
 import model.Teacher;
 import repository.CourseFileRepository;
 import repository.StudentFileRepository;
@@ -47,10 +48,11 @@ public class CourseController {
         this.teacherFileRepository = teacherFileRepository;
     }
 
+    /**
+     * creates a course and updates all files
+     */
     public Course addCourse(Course course) throws IOException {
         List<Teacher> teachers = this.teacherFileRepository.getAll();
-        boolean exists = false;
-
         for (Teacher teacher : teachers) {
             List<Long> coursesIds = teacher.getCoursesIds();
             for (Long courseId : coursesIds) {
@@ -61,22 +63,43 @@ public class CourseController {
                 }
             }
         }
-
         return this.courseFileRepository.create(course);
     }
 
+    /**
+     * returns a list of all courses
+     */
     public List<Course> getAllCourses() {
         return this.courseFileRepository.getAll();
     }
 
+    /**
+     * updates a course and updates all files
+     */
     public Course updateCourse(Course course) throws IOException {
         this.courseFileRepository.update(course);
         this.courseFileRepository.writeDataToFile();
         return course;
     }
 
+    /**
+     * deletes a course and updates all files
+     */
     public void deleteCourse(Course course) throws IOException {
         this.courseFileRepository.delete(course);
+        List<Teacher> teachers = teacherFileRepository.getAll();
+        for (Teacher teacher : teachers) {
+            List<Long> teacherCourses = teacher.getCoursesIds();
+            teacherCourses.remove(course.getCourseId());
+        }
+        List<Student> students = studentFileRepository.getAll();
+        for (Student student : students) {
+            List<Long> studentCourses = student.getEnrolledCoursesIds();
+            studentCourses.remove(course.getCourseId());
+        }
+        this.courseFileRepository.writeDataToFile();
+        this.studentFileRepository.writeDataToFile();
+        this.teacherFileRepository.writeDataToFile();
     }
 
     /**
