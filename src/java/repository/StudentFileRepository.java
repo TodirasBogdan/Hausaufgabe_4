@@ -68,7 +68,7 @@ public class StudentFileRepository extends StudentRepository implements IFileRep
     public Student create(Student obj) throws IOException {
         super.create(obj);
         writeDataToFile();
-        return super.create(obj);
+        return obj;
     }
 
     /**
@@ -80,7 +80,7 @@ public class StudentFileRepository extends StudentRepository implements IFileRep
     public Student update(Student obj) throws IOException {
         super.update(obj);
         writeDataToFile();
-        return super.update(obj);
+        return obj;
     }
 
     /**

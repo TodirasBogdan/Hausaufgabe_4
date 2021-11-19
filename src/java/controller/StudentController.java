@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.NullValueException;
 import model.Course;
 import model.Student;
 import repository.CourseFileRepository;
@@ -14,6 +15,7 @@ public class StudentController {
 
     private CourseFileRepository courseFileRepository;
     private StudentFileRepository studentFileRepository;
+    private Object NullValueException;
 
 
     public StudentController(CourseFileRepository courseFileRepository, StudentFileRepository studentFileRepository) {
@@ -41,14 +43,14 @@ public class StudentController {
     /**
      * creates a student and updates all files
      */
-    public Student addStudent(Student student) throws IOException {
+    public void addStudent(Student student) throws IOException, NullValueException {
         List<Long> enrolledCoursesIds = student.getEnrolledCoursesIds();
         boolean exists;
 
         if (enrolledCoursesIds.size() == 0) {
             this.studentFileRepository.create(student);
             this.studentFileRepository.writeDataToFile();
-            return student;
+            return;
         }
 
         List<Course> courses = this.courseFileRepository.getAll();
@@ -60,8 +62,9 @@ public class StudentController {
                     break;
                 }
             }
-            if (!exists)
-                return null;
+            if (!exists) {
+                throw new NullValueException("Invalid student");
+            }
         }
 
         for (Long courseId : enrolledCoursesIds) {
@@ -74,7 +77,6 @@ public class StudentController {
         this.studentFileRepository.create(student);
         this.studentFileRepository.writeDataToFile();
         this.courseFileRepository.writeDataToFile();
-        return student;
     }
 
     /**
@@ -87,10 +89,9 @@ public class StudentController {
     /**
      * updates a student and updates all files
      */
-    public Student updateStudent(Student student) throws IOException {
+    public void updateStudent(Student student) throws IOException {
         this.studentFileRepository.update(student);
         this.studentFileRepository.writeDataToFile();
-        return student;
     }
 
     /**

@@ -63,7 +63,7 @@ public class TeacherFileRepository extends TeacherRepository implements IFileRep
     public Teacher create(Teacher obj) throws IOException {
         super.create(obj);
         writeDataToFile();
-        return super.create(obj);
+        return obj;
     }
 
     /**

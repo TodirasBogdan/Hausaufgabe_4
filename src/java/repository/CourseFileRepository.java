@@ -67,7 +67,7 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
     public Course create(Course obj) throws IOException {
         super.create(obj);
         writeDataToFile();
-        return super.create(obj);
+        return obj;
     }
 
     /**
@@ -79,7 +79,7 @@ public class CourseFileRepository extends CourseRepository implements IFileRepos
     public Course update(Course obj) throws IOException {
         super.update(obj);
         writeDataToFile();
-        return super.update(obj);
+        return obj;
     }
 
     /**

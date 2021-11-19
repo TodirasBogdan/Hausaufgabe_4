@@ -4,6 +4,7 @@ package view;
 import controller.CourseController;
 import controller.StudentController;
 import controller.TeacherController;
+import exceptions.NullValueException;
 import model.Course;
 import model.Student;
 import model.Teacher;
@@ -18,6 +19,7 @@ public class Ui {
     private CourseController courseController;
     private StudentController studentController;
     private TeacherController teacherController;
+    private final Scanner input = new Scanner(System.in);
 
     public Ui(CourseController courseController, StudentController studentController, TeacherController teacherController) {
         this.courseController = courseController;
@@ -181,7 +183,7 @@ public class Ui {
     /**
      * adds a student
      */
-    public void addStudent() throws IOException {
+    public void addStudent() throws IOException, NullValueException {
         System.out.println("Add Student");
         Scanner scanner = new Scanner(System.in);
         System.out.println("firstName: ");
@@ -394,4 +396,90 @@ public class Ui {
         }
     }
 
+
+    /**
+     * displays the options of the app in the console;
+     */
+    public void display() throws IOException, NullValueException {
+        while (true) {
+            System.out.println("""
+                    Please choose an option:\s
+                    1. Add a course\s
+                    2. Display courses\s
+                    3. Update course\s
+                    4. Delete course\s
+                    5. Sort courses\s
+                    6. Filter courses\s
+                    7. Add a student\s
+                    8. Display students\s
+                    9. Update student\s
+                    10. Delete student\s
+                    11. Sort students\s
+                    12. Filter students\s
+                    13. Add a teacher\s
+                    14. Display teachers\s
+                    15. Update teacher\s
+                    16.Delete teacher\s
+                    17. Exit\s
+                    
+                    Option number:
+                    """
+            );
+            int option = input.nextInt();
+            int token = 0;
+            switch (option) {
+                case 1:
+                    this.addCourse();
+                    break;
+                case 2:
+                    this.getAllCourses();
+                    break;
+                case 3:
+                    this.updateCourse();
+                    break;
+                case 4:
+                    this.deleteCourse();
+                    break;
+                case 5:
+                    this.sortCoursesByCredits();
+                    break;
+                case 6:
+                    this.filterCoursesByCredits();
+                    break;
+                case 7:
+                    this.addStudent();
+                    break;
+                case 8:
+                    this.getAllStudents();
+                    break;
+                case 9:
+                    this.updateStudent();
+                    break;
+                case 10: this.deleteStudent();
+                    break;
+                case 11:
+                    this.sortStudentsByName();
+                    break;
+                case 12:
+                    this.filterStudentsByTotalCredits();
+                    break;
+                case 13:
+                    this.addTeacher();
+                    break;
+                case 14:
+                    this.getAllTeachers();
+                    break;
+                case 15:
+                    this.updateTeacher();
+                    break;
+                case 16:
+                    this.deleteTeacher();
+                case 17:
+                    token = 1;
+                    break;
+            }
+            System.out.println();
+            if (token == 1) break;
+        }
+    }
 }

@@ -37,14 +37,14 @@ public class TeacherController {
     /**
      * adds a teacher and updates all files
      */
-    public Teacher addTeacher(Teacher teacher) throws IOException {
+    public void addTeacher(Teacher teacher) throws IOException {
         List<Long> coursesIds = teacher.getCoursesIds();
         boolean exists;
 
         if (coursesIds.size() == 0) {
             this.teacherFileRepository.create(teacher);
             this.teacherFileRepository.writeDataToFile();
-            return teacher;
+            return;
         }
 
         List<Course> courses = this.courseFileRepository.getAll();
@@ -57,7 +57,7 @@ public class TeacherController {
                 }
             }
             if (!exists)
-                return null;
+                return;
 
         }
 
@@ -71,7 +71,6 @@ public class TeacherController {
         this.teacherFileRepository.create(teacher);
         this.courseFileRepository.writeDataToFile();
         this.teacherFileRepository.writeDataToFile();
-        return teacher;
     }
 
     /**
@@ -84,10 +83,9 @@ public class TeacherController {
     /**
      * updates a teacher and updates all files
      */
-    public Teacher updateTeacher(Teacher teacher) throws IOException {
+    public void updateTeacher(Teacher teacher) throws IOException {
         this.teacherFileRepository.update(teacher);
         this.teacherFileRepository.writeDataToFile();
-        return teacher;
     }
 
     /**

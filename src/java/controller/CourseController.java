@@ -51,7 +51,7 @@ public class CourseController {
     /**
      * creates a course and updates all files
      */
-    public Course addCourse(Course course) throws IOException {
+    public void addCourse(Course course) throws IOException {
         List<Teacher> teachers = this.teacherFileRepository.getAll();
         for (Teacher teacher : teachers) {
             List<Long> coursesIds = teacher.getCoursesIds();
@@ -63,7 +63,7 @@ public class CourseController {
                 }
             }
         }
-        return this.courseFileRepository.create(course);
+        this.courseFileRepository.create(course);
     }
 
     /**
@@ -76,10 +76,9 @@ public class CourseController {
     /**
      * updates a course and updates all files
      */
-    public Course updateCourse(Course course) throws IOException {
+    public void updateCourse(Course course) throws IOException {
         this.courseFileRepository.update(course);
         this.courseFileRepository.writeDataToFile();
-        return course;
     }
 
     /**
