@@ -36,6 +36,9 @@ class StudentControllerTest {
         studentFileRepository.getAll().clear();
     }
 
+    /**
+     * check if sort works properly
+     */
     @Test
     void sortStudentsByName() throws IOException {
         studentFileRepository.readDataFromFile();
@@ -49,6 +52,9 @@ class StudentControllerTest {
         assertEquals(studentController.getAllStudents().size(), 2);
     }
 
+    /**
+     * check if filter works properly
+     */
     @Test
     void filterStudentsByTotalCredits() throws IOException {
         studentFileRepository.readDataFromFile();
